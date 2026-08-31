@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from typing import Dict, List, TypedDict
 
 
-class AbstractLevelUpper(ABC):
+class LevelUpper(ABC):
 
     def current_xp(self, xp: int) -> int:
         """Bound the value to within the allowed XP limits."""
@@ -45,7 +45,7 @@ class AbstractLevelUpper(ABC):
         """Get the maximum achievable XP."""
 
 
-class LinearAbstractLevelUpper(AbstractLevelUpper):
+class LinearLevelUpper(LevelUpper):
 
     def __init__(self, step_size: int, maximum_level: int) -> None:
         self._step_size = step_size
@@ -84,7 +84,7 @@ class LinearAbstractLevelUpper(AbstractLevelUpper):
         return self._maximum_level * self._step_size
 
 
-class ExponentialAbstractLevelUpper(AbstractLevelUpper):
+class ExponentialLevelUpper(LevelUpper):
 
     def __init__(self, initial_xp: int, strength: int, maximum_level: int) -> None:
         self._initial_xp = initial_xp
@@ -176,7 +176,7 @@ class _LevelXp(TypedDict):
     xp: int
 
 
-class InterpolateAbstractLevelUpper(AbstractLevelUpper):
+class InterpolateLevelUpper(LevelUpper):
 
     def __init__(self, level_to_xp_map: Dict[int, int]) -> None:
         self._xp_to_level: List[_LevelXp] = sorted(
@@ -285,18 +285,18 @@ class InterpolateAbstractLevelUpper(AbstractLevelUpper):
 class LevelUpper:
 
     @staticmethod
-    def linear(step_size: int, max_level: int) -> LinearAbstractLevelUpper:
+    def linear(step_size: int, max_level: int) -> LinearLevelUpper:
 
-        return LinearAbstractLevelUpper(step_size, max_level)
+        return LinearLevelUpper(step_size, max_level)
 
     @staticmethod
-    def interpolate(level_to_xp_map: Dict[int, int]) -> InterpolateAbstractLevelUpper:
+    def interpolate(level_to_xp_map: Dict[int, int]) -> InterpolateLevelUpper:
 
-        return InterpolateAbstractLevelUpper(level_to_xp_map)
+        return InterpolateLevelUpper(level_to_xp_map)
 
     @staticmethod
     def exponential(
         initial_xp: int, strength: int, max_level: int
-    ) -> ExponentialAbstractLevelUpper:
+    ) -> ExponentialLevelUpper:
 
-        return ExponentialAbstractLevelUpper(initial_xp, strength, max_level)
+        return ExponentialLevelUpper(initial_xp, strength, max_level)
