@@ -1,15 +1,15 @@
 from .level_up import (
-    AbstractLevelUpper,
-    ExponentialAbstractLevelUpper,
-    InterpolateAbstractLevelUpper,
     LevelUpper,
-    LinearAbstractLevelUpper,
+    ExponentialLevelUpper,
+    InterpolateLevelUpper,
+    LevelUpper,
+    LinearLevelUpper,
 )
 
 __all__ = [
-    "AbstractLevelUpper",
-    "ExponentialAbstractLevelUpper",
-    "InterpolateAbstractLevelUpper",
     "LevelUpper",
-    "LinearAbstractLevelUpper",
+    "ExponentialLevelUpper",
+    "InterpolateLevelUpper",
+    "LevelUpper",
+    "LinearLevelUpper",
 ]

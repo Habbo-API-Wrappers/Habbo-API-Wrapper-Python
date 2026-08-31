@@ -37,11 +37,9 @@ class Hotel(Enum):
 
     @property
     def domain(self) -> str:
-        """The base URL of the hotel (including scheme and trailing slash)."""
         return _DOMAINS[self.value]
 
     def get_domain(self) -> str:
-        """Get the base URL of the hotel. Alias for :attr:`domain`."""
         return self.domain
 
     def get_api_wrapper(self, session: Optional["requests.Session"] = None) -> "HabboPublicAPI":
