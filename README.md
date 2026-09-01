@@ -4,16 +4,10 @@ A  Python wrapper for the Habbo public API.
 
 ## Installation
 
-Install from source (this package is not yet published to PyPI):
+Add the wrapper to your project using pip:
 
 ```bash
-pip install -e .
-```
-
-or install the only runtime dependency directly:
-
-```bash
-pip install -r requirements.txt
+pip install wired-api-python
 ```
 
 ## Basic Usage
