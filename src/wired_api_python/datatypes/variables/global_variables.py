@@ -8,10 +8,15 @@ from . import VariableResult
 
 @dataclass
 class GlobalVariableProfileResult:
-    """A list of permanent global variables in the room."""
+    """A dictionary of permanent global variables in the room, keyed by variable name."""
 
-    variables: List[VariableResult]
+    variables: Dict[str, VariableResult]
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "GlobalVariableProfileResult":
-        return cls(variables=[VariableResult.from_dict(item) for item in data["variables"]])
+        return cls(
+            variables={
+                name: VariableResult.from_dict(item)
+                for name, item in data.get("variables", {}).items()
+            }
+        )
