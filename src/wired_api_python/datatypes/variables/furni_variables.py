@@ -59,9 +59,9 @@ class FurniVariableHoldersResult:
 
 @dataclass
 class FurniVariableProfileResult:
-    """A list of variables assigned to a furni."""
+    """A dictionary of variables assigned to a furni, keyed by variable name."""
 
-    variables: List[VariableResult]
+    variables: Dict[str, VariableResult]
     furni: Optional[FurniHolder]
     furni_bc: Optional[FurniHolder]
     wall_item: Optional[FurniHolder]
@@ -70,11 +70,14 @@ class FurniVariableProfileResult:
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "FurniVariableProfileResult":
         return cls(
-            variables=[VariableResult.from_dict(item) for item in data["variables"]],
-            furni=FurniHolder.from_dict(data["furni"]) if "furni" in data else None,
-            furni_bc=FurniHolder.from_dict(data["furni_bc"]) if "furni_bc" in data else None,
-            wall_item=FurniHolder.from_dict(data["wall_item"]) if "wall_item" in data else None,
+            variables={
+                name: VariableResult.from_dict(item)
+                for name, item in data.get("variables", {}).items()
+            },
+            furni=FurniHolder.from_dict(data["furni"]) if "furni" in data and data["furni"] is not None else None,
+            furni_bc=FurniHolder.from_dict(data["furni_bc"]) if "furni_bc" in data and data["furni_bc"] is not None else None,
+            wall_item=FurniHolder.from_dict(data["wall_item"]) if "wall_item" in data and data["wall_item"] is not None else None,
             wall_item_bc=(
-                FurniHolder.from_dict(data["wall_item_bc"]) if "wall_item_bc" in data else None
+                FurniHolder.from_dict(data["wall_item_bc"]) if "wall_item_bc" in data and data["wall_item_bc"] is not None else None
             ),
         )
