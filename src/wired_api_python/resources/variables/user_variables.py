@@ -55,7 +55,7 @@ class UserVariablesResource(AbstractVariablesResource):
         This method works similarly to the "assign" option in
         ``WIRED Effect: Change Variable Value``.
         """
-        data = self.transporter.put(
+        data = self.transporter.patch(
             f"/api/public/rooms/{self.room_id}/variables/user/{variable_name}/"
             f"{target_kind.key()}/{entity_id}",
             {"value": value},

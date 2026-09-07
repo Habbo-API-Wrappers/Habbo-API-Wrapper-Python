@@ -59,7 +59,7 @@ class FurniVariablesResource(AbstractVariablesResource):
         ``WIRED Effect: Change Variable Value``.
         """
         furni_id = sanitise_furni_id(furni_id)
-        data = self.transporter.put(
+        data = self.transporter.patch(
             f"/api/public/rooms/{self.room_id}/variables/furni/{variable_name}/"
             f"{target_kind.key()}/{furni_id}",
             {"value": value},
